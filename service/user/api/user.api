@@ -1,10 +1,11 @@
 type (
 	// 用户登录
 	LoginRequest {
-		Name     int    `json:"name"`
+		Account     string    `json:"account"`
 		Password string `json:"password"`
 	}
 	LoginResponse {
+		Code	int	`json:"code"`
 		AccessToken  string `json:"accessToken"`
 		AccessExpire int64  `json:"accessExpire"`
 	}
@@ -12,13 +13,33 @@ type (
 
 	// 用户注册
 	RegisterRequest {
-		Name     string `json:"name"`
+		Account     string `json:"Account"`
 		Password string `json:"password"`
 	}
 	RegisterResponse {
-		Name string `json:"name"`
+		Code int `json:"code"`
+		Msg string `json:"msg"`
 	}
 	// 用户注册
+
+	// 用户修改信息
+	UserInsertRequst {
+		Name     string `json:"name"`
+		Sex      string `json:"sex"`
+		Age      int    `json:"age"`
+		Phone    string    `json:"phone"`
+		Mail     string `json:"mail"`
+		Identity string `json:"identity"`
+		Need     string `json:"need"`
+	}
+
+
+	UserInsertRespinse {
+		Code int `json:"code"`
+		Msg string `json:"msg"`
+	}
+
+
 
 	// 用户信息
 	UserInfoResponse {
@@ -34,18 +55,25 @@ type (
 	// 用户信息
 )
 
+
+
 service User {
 	@handler Login
 	post /api/user/login(LoginRequest) returns (LoginResponse)
 
-	@handler Register
-	post /api/user/register(RegisterRequest) returns (RegisterResponse)
+	@handler MailRegister
+	post /api/user/mailregister(RegisterRequest) returns (RegisterResponse)
+
 }
 
 @server(
 	jwt: Auth
 )
 service User {
+
+	@handler UserInsert
+	post /api/user/userinsert(UserInsertRequst) returns ()
+
 	@handler UserInfo
 	post /api/user/userinfo() returns (UserInfoResponse)
 }

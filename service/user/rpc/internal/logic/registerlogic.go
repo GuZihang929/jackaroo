@@ -3,12 +3,13 @@ package logic
 import (
 	"context"
 	"database/sql"
-	"errors"
 	"fmt"
 	"jackaroo/common"
+	"strconv"
 	"sync"
 	"time"
 	"user/model"
+
 	"user/rpc/internal/svc"
 	"user/rpc/rpc"
 
@@ -30,8 +31,12 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(in *rpc.RegisterRequest) (*rpc.RegisterResponse, error) {
-	// 判断手机号是否已经注册
-	user, _ := l.svcCtx.UserModel.FindOneByPhone(l.ctx, in.Phone)
+
+	get, err := l.svcCtx.Redis.Get(in.Phone)
+	if err != nil {
+		return nil, err
+	}
+
 	sf := &common.Snowflake{
 		Mutex:        sync.Mutex{},
 		Timestamp:    time.Now().Unix(),
@@ -39,24 +44,21 @@ func (l *RegisterLogic) Register(in *rpc.RegisterRequest) (*rpc.RegisterResponse
 		Datacenterid: 1,
 		Sequence:     01231,
 	}
-	uuid := sf.NextVal()
-	if user == nil {
-		fmt.Println("-=-=-=-=-=-=")
-		u := &model.User{
-			Uuid:     uuid,
-			Phone:    sql.NullString{String: in.Phone, Valid: true},
-			Password: sql.NullString{String: in.Password, Valid: true},
-		}
-		insert, e := l.svcCtx.UserModel.Insert(l.ctx, u)
-		if e != nil {
-			return nil, e
-		}
-		fmt.Println(insert)
 
-		return &rpc.RegisterResponse{
-			Name: "注册成功",
-			Ok:   "200",
-		}, nil
+	uuid := sf.NextVal()
+
+	if get == strconv.FormatInt(in.Code, 10) {
+		_, err = l.svcCtx.UserModel.Insert(l.ctx, &model.User{
+			Uuid:     uuid,
+			Password: sql.NullString{String: in.Password, Valid: true},
+			Mail:     sql.NullString{String: in.Phone, Valid: true},
+			Auth:     sql.NullInt64{Int64: 0, Valid: true},
+		})
+		if err != nil {
+			return nil, err
+		}
 	}
-	return &rpc.RegisterResponse{}, errors.New("已经存在")
+	fmt.Println("注册完成")
+
+	return &rpc.RegisterResponse{}, nil
 }

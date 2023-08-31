@@ -1,0 +1,97 @@
+type Articles {
+	Uuid    int64  `json:"uuid"`
+	UserId  int64  `json:"user_id"`
+	Name    string `json:"name"`
+	Info    string `json:"info"`
+	Tag     string `json:"tag"`
+	Time    int64  `json:"time"`
+	LikeSum int64  `json:"like_sum"`
+}
+
+//展示文章
+
+type ArtsRequest {
+	NextID   int64 `json:"next_id"`
+	PageSize int64 `json:"page_size"`
+}
+
+type ArtsResponse {
+	Code int64      `json:"code"`
+	Date []Articles `json:"date"`
+}
+
+type ArtRequest {
+	Name string `json:"name"`
+}
+
+type ArtResponse {
+	Code int64      `json:"code"`
+	Msg  string     `json:"msg"`
+	Date []Articles `json:"date"`
+}
+
+type AddArtRequest {
+	Name string `json:"name"`
+	Info string `json:"info"`
+	Tag  string `json:"tag"`
+	Time int64  `json:"time"`
+}
+
+type AddArtResponse {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+}
+
+type MyArtResponse {
+	Code int64      `json:"code"`
+	Msg  string     `json:"msg"`
+	Date []Articles `json:"date"`
+}
+
+type UpdateArtRequest {
+	ArtId int64  `json:"art_id"`
+	Name  string `json:"name"`
+	Info  string `json:"info"`
+	Tag   string `json:"tag"`
+	Time  int64  `json:"time"`
+}
+
+type UpdateArtResponse {
+	Code int64      `json:"code"`
+	Msg  string     `json:"msg"`
+	Date Articles `json:"date"`
+}
+
+type DelArtRequest {
+	ArtId int64 `json:"art_id"`
+}
+
+type DelArtResponse {
+	Code int64      `json:"code"`
+	Msg  string     `json:"msg"`
+	Date Articles `json:"date"`
+}
+
+@server(
+	jwt: Auth
+)
+service Article {
+
+	@handler articles
+	post /api/article/articles(ArtsRequest) returns (ArtsResponse)
+
+	@handler article
+	post /api/article/article(ArtRequest) returns (ArtResponse)
+
+	@handler addmyarticle
+	post /api/article/addmyarticle(AddArtRequest) returns (AddArtResponse)
+
+	@handler myarticle
+	post /api/article/myarticle() returns (MyArtResponse)
+
+	@handler updatearticle
+	post /api/article/updatearticle(UpdateArtRequest) returns (UpdateArtResponse)
+
+	@handler delarticle
+	post /api/article/delarticle(DelArtRequest) returns (DelArtResponse)
+}

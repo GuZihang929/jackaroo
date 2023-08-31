@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package rpc;
+
+option go_package = "./rpc";
+
+message ArtsRequest{
+  int64 NextID  =1;
+  int64 PageSize =2;
+}
+
+message Art{
+  int64  Uuid=1;
+  int64  UserId=2;
+  string Name=3;
+  string Info=4;
+  string Tag=5;
+  int64  Time=6;
+  int64  LikeSum=7;
+
+}
+
+message ArtsResponse{
+  int64 	Code  =1;
+  repeated Art 		Date =2;
+}
+
+message ArtRequest{
+  string Name = 1;
+}
+
+message ArtResponse{
+  int64 Code  =1;
+  string Msq =2;
+  repeated Art Date=3;
+}
+
+message AddArtRequest{
+  string Name =1;
+  string Info =2;
+  string Tag =3;
+  int64 Time =4;
+}
+
+message AddArtResponse{
+  int64 Code  =1;
+  string Msq =2;
+}
+
+message MyArtRequest{
+  int64 ArtId =1;
+}
+
+message MyArtResponse{
+  int64 Code  =1;
+  string Msq =2;
+  repeated Art Date=3;
+}
+message UpdateArtRequest{
+  int64 ArtId =1;
+  string Name =2;
+  string Info =3;
+  string Tag =4;
+  int64 Time =5;
+}
+message UpdateArtResponse{
+  int64 Code  =1;
+  string Msq =2;
+  Art Date=3;
+}
+
+message DelArtRequest{
+  int64 Art =1;
+}
+
+message DelArtResponse{
+  int64 Code  =1;
+  string Msq =2;
+  repeated Art Date=3;
+}
+
+
+
+
+service Article {
+  rpc Articles(ArtsRequest) returns (ArtsResponse);
+  rpc Article(ArtRequest) returns (ArtResponse);
+  rpc AddMyArticle(AddArtRequest) returns (AddArtResponse);
+  rpc MyArticle(MyArtRequest) returns (MyArtResponse);
+  rpc UpdateArticle(UpdateArtRequest) returns (UpdateArtResponse);
+  rpc DelArticle(DelArtRequest) returns (DelArtResponse);
+}

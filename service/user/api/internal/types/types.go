@@ -2,23 +2,39 @@
 package types
 
 type LoginRequest struct {
-	Name     int    `json:"name"`
+	Account  string    `json:"account"`
 	Password string `json:"password"`
 }
 
 type LoginResponse struct {
+	Code	int	`json:"code"`
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 }
 
 type RegisterRequest struct {
-	Name     string `json:"name"`
+	Account  string `json:"Account"`
 	Password string `json:"password"`
 }
 
 type RegisterResponse struct {
-	Name string `json:"name"`
-	Ok   string `json:"ok"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
+
+type UserInsertRequst struct {
+	Name     string `json:"name"`
+	Sex      string `json:"sex"`
+	Age      int    `json:"age"`
+	Phone    string `json:"phone"`
+	Mail     string `json:"mail"`
+	Identity string `json:"identity"`
+	Need     string `json:"need"`
+}
+
+type UserInsertRespinse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 type UserInfoResponse struct {

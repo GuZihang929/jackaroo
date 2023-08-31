@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -10,17 +9,18 @@ import (
 	"user/api/internal/types"
 )
 
-func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func UserInsertHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.RegisterRequest
+
+		var req types.UserInsertRequst
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewRegisterLogic(r.Context(), svcCtx)
-		resp, err := l.Register(&req)
-		fmt.Println("api---", err)
+		l := logic.NewUserInsertLogic(r.Context(), svcCtx)
+		resp, err := l.UserInsert(&req)
+
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

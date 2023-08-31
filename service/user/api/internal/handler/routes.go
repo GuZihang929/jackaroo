@@ -19,14 +19,30 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/api/user/register",
-				Handler: RegisterHandler(serverCtx),
+				Path:    "/api/user/phoneregister",
+				Handler: PhoneRegisterHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/user/mailvef",
+				Handler: MailSendHandler(serverCtx),
+			},
+
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/user/mailregister",
+				Handler: MailRegisterHandler(serverCtx),
 			},
 		},
 	)
 
 	server.AddRoutes(
 		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/user/userinsert",
+				Handler: UserInsertHandler(serverCtx),
+			},
 			{
 				Method:  http.MethodPost,
 				Path:    "/api/user/userinfo",
