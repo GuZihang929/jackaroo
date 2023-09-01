@@ -1,0 +1,26 @@
+type PeoResponse {
+	Code   int64    `json:"code"`
+	Msg    string `json:"msg"`
+	Time   []int64  `json:"time"`
+	People []int64  `json:"people"`
+}
+
+type JobResponse {
+	Code   int64      `json:"code"`
+	Msg    string   `json:"msg"`
+	Job    []string `json:"job"`
+	People []int64    `json:"people"`
+}
+
+@server(
+	jwt: Auth
+)
+service backstage {
+
+	@handler get24p
+	get /api/backstage/get24p() returns (PeoResponse)
+
+	@handler getseajob
+	get /api/backstage/getseajob() returns (JobResponse)
+
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package rpc;
+
+option go_package = "./rpc";
+
+message PeoRequest{
+
+}
+
+message PeoResponse {
+  int64 Code  =1;
+  string Msg =2;
+  repeated int64 Time =3;
+  repeated int64 People =4;
+}
+
+
+message JobRequest{
+
+}
+
+message JobResponse {
+  int64 Code  =1;
+  string Msg =2;
+  repeated string Job =3;
+  repeated int64 People =4;
+}
+
+service backstage {
+  rpc Get24p(PeoRequest) returns (PeoResponse);
+  rpc GetSeaJob(JobRequest) returns (JobResponse);
+}

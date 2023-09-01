@@ -14,6 +14,7 @@ type (
 	// 用户注册
 	RegisterRequest {
 		Account     string `json:"Account"`
+		Code	string `json:"code"`
 		Password string `json:"password"`
 	}
 	RegisterResponse {
@@ -63,6 +64,8 @@ service User {
 
 	@handler MailRegister
 	post /api/user/mailregister(RegisterRequest) returns (RegisterResponse)
+
+	post /api/user/mailvef(MailSendRequest) returns(MailSendResponse)
 
 }
 
