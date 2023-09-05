@@ -5,7 +5,7 @@ type (
 		Password string `json:"password"`
 	}
 	LoginResponse {
-		Code	int	`json:"code"`
+		Code	int	`json:"code"`	//0为用户，1为管理员
 		AccessToken  string `json:"accessToken"`
 		AccessExpire int64  `json:"accessExpire"`
 	}
@@ -20,7 +20,23 @@ type (
 	RegisterResponse {
 		Code int `json:"code"`
 		Msg string `json:"msg"`
+		Data string `json:"data"`
 	}
+
+
+	MailSendRequest {
+		Account string `json:"account"`
+	}
+
+
+	MailSendResponse {
+		Code int `json:"code"`
+		Msg string `json:"msg"`
+		Data string  `json:"data"`
+	}
+
+
+
 	// 用户注册
 
 	// 用户修改信息
@@ -29,15 +45,15 @@ type (
 		Sex      string `json:"sex"`
 		Age      int    `json:"age"`
 		Phone    string    `json:"phone"`
-		Mail     string `json:"mail"`
 		Identity string `json:"identity"`
 		Need     string `json:"need"`
 	}
 
 
-	UserInsertRespinse {
+	UserInsertResponse {
 		Code int `json:"code"`
 		Msg string `json:"msg"`
+		Data  User `json:"data"`
 	}
 
 
@@ -48,24 +64,52 @@ type (
 		Name     string `json:"name"`
 		Sex      string `json:"sex"`
 		Age      int    `json:"age"`
-		Phone    string    `json:"phone"`
+		Phone    string `json:"phone"`
 		Mail     string `json:"mail"`
 		Identity string `json:"identity"`
 		Need     string `json:"need"`
 	}
 	// 用户信息
+
+
+	AccessAddRequest {
+		Account string `json:"account"`
+	}
+
+	AccessAddResponse {
+		Code int `json:"code"`
+		Msg string `json:"msg"`
+		Data  string `json:"data"`
+	}
+
+	User {
+		Id       int64  `json:"id"`
+		Name     string `json:"name"`
+		Sex      string `json:"sex"`
+		Age      int    `json:"age"`
+		Phone    string `json:"phone"`
+		Mail     string `json:"mail"`
+		Identity string `json:"identity"`
+		Need     string `json:"need"`
+	}
 )
 
 
 
 service User {
+	@doc(
+		summary: "用户搜索"
+	)
 	@handler Login
 	post /api/user/login(LoginRequest) returns (LoginResponse)
 
 	@handler MailRegister
 	post /api/user/mailregister(RegisterRequest) returns (RegisterResponse)
 
+	@handler MailSend
 	post /api/user/mailvef(MailSendRequest) returns(MailSendResponse)
+
+
 
 }
 
@@ -75,8 +119,21 @@ service User {
 service User {
 
 	@handler UserInsert
-	post /api/user/userinsert(UserInsertRequst) returns ()
+	post /api/user/userinsert(UserInsertRequst) returns (UserInsertResponse)
 
 	@handler UserInfo
-	post /api/user/userinfo() returns (UserInfoResponse)
+	get /api/user/userinfo() returns (UserInfoResponse)
+
+
+	@handler UserAccess
+	post /api/user/api/user/accessadd(AccessAddRequest) returns(AccessAddResponse)
 }
+
+/**
+	项目修改:
+		1. 注册和修改密码用的是一套逻辑，判断是添加还是修改。
+		2. userinfo换为get方法
+		3. 更新个人信息，删除邮箱参数，添加了响应
+		4. 添加用户访问是访问人数add
+
+**/

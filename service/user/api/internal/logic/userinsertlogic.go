@@ -25,7 +25,7 @@ func NewUserInsertLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserIn
 	}
 }
 
-func (l *UserInsertLogic) UserInsert(req *types.UserInsertRequst) (*types.UserInsertRespinse, error) {
+func (l *UserInsertLogic) UserInsert(req *types.UserInsertRequst) (*types.UserInsertResponse, error) {
 
 	i, err := l.ctx.Value("userId").(json.Number).Int64()
 	res, err := l.svcCtx.UserRpc.UserInsert(l.ctx, &rpc.UserInsertRequest{
@@ -41,7 +41,7 @@ func (l *UserInsertLogic) UserInsert(req *types.UserInsertRequst) (*types.UserIn
 		return nil, err
 	}
 
-	return &types.UserInsertRespinse{
+	return &types.UserInsertResponse{
 		Code: int(res.Code),
 		Msg:  res.Msg,
 	}, nil

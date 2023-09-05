@@ -4,14 +4,14 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"user/api/internal/logic"
-	"user/api/internal/svc"
+	"job/api/internal/logic"
+	"job/api/internal/svc"
 )
 
-func UserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func companyHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := logic.NewUserInfoLogic(r.Context(), svcCtx)
-		resp, err := l.UserInfo()
+		l := logic.NewCompanyLogic(r.Context(), svcCtx)
+		resp, err := l.Company()
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

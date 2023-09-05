@@ -11,7 +11,7 @@ type MyClaims struct {
 	jwt.RegisteredClaims
 }
 
-const TokenExpireDuration = time.Hour * 1
+const TokenExpireDuration = time.Hour * 24
 
 // CustomSecret 用于加盐的字符串
 var CustomSecret = []byte("uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl")

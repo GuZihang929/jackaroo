@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"strconv"
 	"user/api/internal/svc"
 	"user/api/internal/types"
 	"user/rpc/rpc"
@@ -23,24 +24,11 @@ func NewMailRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Mail
 	}
 }
 
-func (l *MailRegisterLogic) MailSend(req *types.RegisterRequest) (resp *types.RegisterResponse, err error) {
-	_, err = l.svcCtx.UserRpc.MailSendCode(l.ctx, &rpc.MailSendRequest{Phone: req.Account})
-	if err != nil {
-		return &types.RegisterResponse{
-			Code: 500,
-			Msg:  "出现异常",
-		}, err
-	}
-	return &types.RegisterResponse{
-		Code: 200,
-		Msg:  "",
-	}, nil
-}
-
 func (l *MailRegisterLogic) MailRegister(req *types.RegisterRequest) (resp *types.RegisterResponse, err error) {
-
+	atoi, err := strconv.Atoi(req.Code)
 	_, err = l.svcCtx.UserRpc.Register(l.ctx, &rpc.RegisterRequest{
 		Phone:    req.Account,
+		Code:     int64(atoi),
 		Password: req.Password,
 	})
 	if err != nil {

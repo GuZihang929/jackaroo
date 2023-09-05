@@ -28,6 +28,14 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(in *rpc.LoginRequest) (*rpc.LoginResponse, error) {
 
+	hgetall, err2 := l.svcCtx.Redis.Hgetall("job")
+	fmt.Println(len(hgetall))
+	fmt.Println(err2)
+
+	hgetall, err2 = l.svcCtx.Redis.Hgetall("213")
+	fmt.Println(hgetall)
+	fmt.Println(err2)
+
 	var user model.User
 	err := l.svcCtx.DB.QueryRowCtx(l.ctx, &user, "select * from user where mail = ?", in.Name)
 	if err != nil {

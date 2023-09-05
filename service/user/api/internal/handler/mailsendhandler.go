@@ -9,16 +9,16 @@ import (
 	"user/api/internal/types"
 )
 
-func UserInsertHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func MailSendHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UserInsertRequst
+		var req types.MailSendRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewUserInsertLogic(r.Context(), svcCtx)
-		resp, err := l.UserInsert(&req)
+		l := logic.NewMailSendLogic(r.Context(), svcCtx)
+		resp, err := l.MailSend(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

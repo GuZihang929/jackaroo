@@ -9,16 +9,16 @@ import (
 	"user/api/internal/types"
 )
 
-func PhoneRegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func UserAccessHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.RegisterRequest
+		var req types.AccessAddRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewPhoneRegisterLogic(r.Context(), svcCtx)
-		resp, err := l.PhoneRegister(&req)
+		l := logic.NewUserAccessLogic(r.Context(), svcCtx)
+		resp, err := l.UserAccess(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

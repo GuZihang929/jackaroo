@@ -1,0 +1,84 @@
+type JobsRequest {
+	Name		string	`json:"name"`
+	Title       string `json:"title"`
+	JobCategory string `json:"job_category"`
+	JobTypeName string `json:"job_type_name"`
+	JobLocation string `json:"job_location"`
+}
+
+type JobsResponse {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Date []Job  `json:"date"`
+}
+
+type TagAddRequest {
+	Tag string `json:"tag"`
+}
+
+type TagAddResponse {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Date string  `json:"date"`
+}
+
+
+type CompanySumResponse {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Date []Companys  `json:"date"`
+}
+
+type JobRequest {
+	Id          int64  `json:"id"`
+}
+
+type JobResponse {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Date Job  `json:"date"`
+}
+
+type Job {
+	Id          int64  `json:"id"`
+	CId         int64  `json:"c_id"`
+	Company		string `json:"company"`
+	Title       string `json:"title"`
+	JobCategory string `json:"job_category"`
+	JobTypeName string `json:"job_typeName"`
+	JobDetail   string `json:"job_detail"`
+	JobLocation string `json:"job_location"`
+	Push_time   string `json:"push_time"`
+	Fetch_time  string `json:"fetch_time"`
+}
+
+type Companys {
+	Company string 	`json:"company"`
+	Sum 	int64 	`json:"sum"`
+}
+
+@server(
+	jwt: Auth
+)
+service SJob {
+	@handler jobs
+	post /api/job/serchjob(JobsRequest) returns (JobsResponse)
+
+	@handler tag
+	post /api/job/tagadd(TagAddRequest) returns (TagAddResponse)
+
+	@handler company
+	get /api/job/getcompanysum() returns (CompanySumResponse)
+
+	@handler job
+	post /api/job/getjob(JobRequest) returns (JobResponse)
+}
+
+
+/**
+	项目修改:
+		1. 添加点击标签，redis++
+		2. 添加查询公司和岗位数目，
+		3. 添加获取岗位的详细信息，
+		4. job表添加了一个name的名字。
+**/

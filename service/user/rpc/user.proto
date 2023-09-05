@@ -68,6 +68,14 @@ message UserInsertResponse{
   int64  code = 2;
 }
 
+message UserAccessRequest {
+
+}
+
+
+message UserAccessResponse {
+
+}
 
 // 用户信息
 

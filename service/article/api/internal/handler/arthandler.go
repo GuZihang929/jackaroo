@@ -3,22 +3,22 @@ package handler
 import (
 	"net/http"
 
+	"article/api/internal/logic"
+	"article/api/internal/svc"
+	"article/api/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"user/api/internal/logic"
-	"user/api/internal/svc"
-	"user/api/internal/types"
 )
 
-func UserInsertHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func artHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UserInsertRequst
+		var req types.ARequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewUserInsertLogic(r.Context(), svcCtx)
-		resp, err := l.UserInsert(&req)
+		l := logic.NewArtLogic(r.Context(), svcCtx)
+		resp, err := l.Art(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

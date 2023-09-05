@@ -30,6 +30,17 @@ type ArtResponse {
 	Date []Articles `json:"date"`
 }
 
+type ARequest {
+	Uuid int64 `json:"uuid"`
+}
+
+
+type AResponse {
+	Code int64      `json:"code"`
+	Msg  string     `json:"msg"`
+	Date Articles `json:"date"`
+}
+
 type AddArtRequest {
 	Name string `json:"name"`
 	Info string `json:"info"`
@@ -72,6 +83,21 @@ type DelArtResponse {
 	Date Articles `json:"date"`
 }
 
+
+
+type LikeRequest {
+	ArtId	int64  `json:"art_id"`
+	Sum	int64 	`json:"sum"`
+}
+
+
+type LikeResponse {
+	Code int64      `json:"code"`
+	Msg  string     `json:"msg"`
+	Date Articles `json:"date"`
+}
+
+
 @server(
 	jwt: Auth
 )
@@ -83,15 +109,33 @@ service Article {
 	@handler article
 	post /api/article/article(ArtRequest) returns (ArtResponse)
 
+
 	@handler addmyarticle
 	post /api/article/addmyarticle(AddArtRequest) returns (AddArtResponse)
 
 	@handler myarticle
-	post /api/article/myarticle() returns (MyArtResponse)
+	get /api/article/myarticle() returns (MyArtResponse)
 
 	@handler updatearticle
 	post /api/article/updatearticle(UpdateArtRequest) returns (UpdateArtResponse)
 
 	@handler delarticle
 	post /api/article/delarticle(DelArtRequest) returns (DelArtResponse)
+
+
+//9.4号需要添加的路由
+
+	@handler art
+	post /api/article/art(ARequest) returns (AResponse)
+
+	@handler like
+	post /api/article/likeadd(LikeRequest) returns (LikeResponse)
 }
+
+
+/**
+	项目修改:
+		1. 添加文章的具体内容的路由处理
+		2. myarticle方法改为Get方法
+		3. 添加文章点赞的路由处理
+**/

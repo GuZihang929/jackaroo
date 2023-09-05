@@ -4,21 +4,21 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"user/api/internal/logic"
-	"user/api/internal/svc"
-	"user/api/internal/types"
+	"job/api/internal/logic"
+	"job/api/internal/svc"
+	"job/api/internal/types"
 )
 
-func UserInsertHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func jobsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UserInsertRequst
+		var req types.JobsRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewUserInsertLogic(r.Context(), svcCtx)
-		resp, err := l.UserInsert(&req)
+		l := logic.NewJobsLogic(r.Context(), svcCtx)
+		resp, err := l.Jobs(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

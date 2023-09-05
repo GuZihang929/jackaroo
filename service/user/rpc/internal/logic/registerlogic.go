@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"jackaroo/common"
 	"strconv"
@@ -31,11 +30,12 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(in *rpc.RegisterRequest) (*rpc.RegisterResponse, error) {
-
+	fmt.Println("1111111111111111")
 	get, err := l.svcCtx.Redis.Get(in.Phone)
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println(in)
 
 	sf := &common.Snowflake{
 		Mutex:        sync.Mutex{},
@@ -46,19 +46,44 @@ func (l *RegisterLogic) Register(in *rpc.RegisterRequest) (*rpc.RegisterResponse
 	}
 
 	uuid := sf.NextVal()
+	var user model.User
 
 	if get == strconv.FormatInt(in.Code, 10) {
-		_, err = l.svcCtx.UserModel.Insert(l.ctx, &model.User{
-			Uuid:     uuid,
-			Password: sql.NullString{String: in.Password, Valid: true},
-			Mail:     sql.NullString{String: in.Phone, Valid: true},
-			Auth:     sql.NullInt64{Int64: 0, Valid: true},
-		})
-		if err != nil {
-			return nil, err
+		err = l.svcCtx.DB.QueryRow(&user, "select * from user where mail = ?", in.Phone)
+		fmt.Println(user)
+		fmt.Println("===================1")
+		if user.Mail.String != "" {
+			fmt.Println("===================2")
+			_, err = l.svcCtx.DB.Exec("update user set  password = ? where mail = ?", in.Password, in.Phone)
+			fmt.Println(err)
+			fmt.Println("===================3")
+			if err != nil {
+				return &rpc.RegisterResponse{
+					Name: "保存有误",
+					Ok:   "400",
+				}, err
+			}
+		} else {
+			fmt.Println("===================4")
+			_, err = l.svcCtx.DB.Exec("insert into user (uuid,mail,password) values (?,?,?)", uuid, in.Phone, in.Password)
+			if err != nil {
+				return &rpc.RegisterResponse{
+					Name: "保存有误",
+					Ok:   "400",
+				}, err
+			}
 		}
-	}
-	fmt.Println("注册完成")
 
-	return &rpc.RegisterResponse{}, nil
+	} else {
+
+		return &rpc.RegisterResponse{
+			Name: "验证码有误",
+			Ok:   "400",
+		}, err
+	}
+
+	return &rpc.RegisterResponse{
+		Name: "注册成功",
+		Ok:   "200",
+	}, nil
 }
