@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Go template
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
@@ -22,3 +23,13 @@
 go.work
 /.idea/
 /.git/
+=======
+# 默认忽略的文件
+/shelf/
+/workspace.xml
+# 基于编辑器的 HTTP 客户端请求
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+>>>>>>> c92666e2311ee8140eee3630eaaa264de69ca433

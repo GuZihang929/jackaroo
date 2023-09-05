@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package rpc;
+
+option go_package = "./rpc";
+
+// 用户登录
+message LoginRequest {
+  string Name = 1;
+  string Password = 2;
+}
+message LoginResponse {
+  string Name = 1;
+  string Ok = 2;
+}
+// 用户登录
+
+// 用户注册
+message RegisterRequest {
+  string Phone = 1;
+  int64 Code = 2;
+  string Password = 3;
+}
+message RegisterResponse {
+  string Name = 1;
+  string Ok = 2;
+}
+
+
+
+
+message MailSendRequest {
+  string Phone = 1;
+}
+message MailSendResponse {
+  string Name = 1;
+  string Ok = 2;
+}
+// 用户注册
+
+// 用户信息
+message UserInfoRequest {
+  int64 Id = 1;
+}
+message UserInfoResponse {
+  int64 Id = 1;
+  string Name = 2;
+  int64 Age = 3;
+  string Sex = 4;
+  string Phone = 5;
+  string Mail = 6;
+  string Identity = 7;
+  string Need = 8;
+}
+
+
+message UserInsertRequest{
+  string Name = 1;
+  int64 Age = 2;
+  string Sex = 3;
+  string Identity = 4;
+  string Need = 5;
+  int64 Uuid = 6;
+}
+
+message UserInsertResponse{
+  string Msg = 1;
+  int64  code = 2;
+}
+
+message UserAccessRequest {
+
+}
+
+
+message UserAccessResponse {
+
+}
+
+// 用户信息
+
+service User {
+  rpc Login(LoginRequest) returns(LoginResponse);
+  rpc Register(RegisterRequest) returns(RegisterResponse);
+  rpc MailSendCode(MailSendRequest) returns(MailSendResponse);
+  rpc UserInfo(UserInfoRequest) returns(UserInfoResponse);
+  rpc UserInsert(UserInsertRequest) returns(UserInsertResponse);
+}
