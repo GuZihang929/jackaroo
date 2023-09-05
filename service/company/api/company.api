@@ -1,0 +1,114 @@
+info(
+	title: "用户文档"
+	desc: "用户接口"
+	author: "王志乾"
+	email: "835118160@qq.com"
+	version: "1.0"
+)
+
+type (
+	// 添加公司
+	CreateRequest {
+		Company string `json:"company"`
+		Brief   string `json:"brief"`
+		Picture string `json:"picture"`
+	}
+	CreateResponse {
+		Id int64 `json:"id"`
+	}
+
+
+	// 修改公司
+	UpdateRequest {
+		Id      int64  `json:"id"`
+		Company string `json:"company,optional"`
+		Brief   string `json:"brief"`
+		Picture string `json:"picture"`
+	}
+	UpdateResponse {
+	}
+
+
+	// 删除公司
+	RemoveRequest {
+		Id int64 `json:"id"`
+	}
+	RemoveResponse {
+	}
+
+
+	// 公司详情
+	DetailRequest {
+		Id int64 `json:"id"`
+	}
+	DetailResponse {
+		Id      int64  `json:"id"`
+		Company string `json:"company"`
+		Number  int64  `json:"number"`
+		Brief   string `json:"brief"`
+		Picture string `json:"picture"`
+	}
+
+
+	//查看全部公司详情
+	ListRequest {
+	}
+	ListResponse {
+		Id      int64  `json:"id"`
+		Company string `json:"company"`
+		Number  int64  `json:"number"`
+		Brief   string `json:"brief"`
+		Picture string `json:"picture"`
+	}
+
+
+	// 刷新
+	RefreshRequest {
+		Id int64 `json:"id"`
+	}
+	RefreshResponse {
+		Id      int64  `json:"id"`
+		Company string `json:"company"`
+		Number  int64  `json:"number"`
+		Brief   string `json:"brief"`
+		Picture string `json:"picture"`
+	}
+)
+
+service Company {
+	@doc (
+		summary :"添加公司信息"
+	)
+	@handler Create
+	post /api/company/create(CreateRequest) returns (CreateResponse)
+
+	@doc (
+		summary :"修改公司信息"
+	)
+	@handler Update
+	post /api/company/update(UpdateRequest) returns (UpdateResponse)
+
+	@doc (
+		summary :"删除公司信息"
+	)
+	@handler Remove
+	post /api/company/remove(RemoveRequest) returns (RemoveResponse)
+
+	@doc (
+		summary :"查看公司信息"
+	)
+	@handler Detail
+	post /api/company/detail(DetailRequest) returns (DetailResponse)
+
+	@doc (
+		summary :"刷新公司信息"
+	)
+	@handler Refresh
+	post /api/company/refresh(RefreshRequest) returns (RefreshResponse)
+
+	@doc (
+		summary :"查看全部公司信息"
+	)
+	@handler List
+	post /api/company/list(ListRequest) returns (ListResponse)
+}

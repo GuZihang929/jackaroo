@@ -1,0 +1,407 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "用户文档",
+    "description": "用户接口",
+    "version": "1.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/company/create": {
+      "post": {
+        "summary": "添加公司信息",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 添加公司",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Company"
+        ]
+      }
+    },
+    "/api/company/detail": {
+      "post": {
+        "summary": "查看公司信息",
+        "operationId": "Detail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 公司详情",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DetailRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Company"
+        ]
+      }
+    },
+    "/api/company/list": {
+      "post": {
+        "summary": "查看全部公司信息",
+        "operationId": "List",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "查看全部公司详情",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Company"
+        ]
+      }
+    },
+    "/api/company/refresh": {
+      "post": {
+        "summary": "刷新公司信息",
+        "operationId": "Refresh",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RefreshResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 刷新",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefreshRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Company"
+        ]
+      }
+    },
+    "/api/company/remove": {
+      "post": {
+        "summary": "删除公司信息",
+        "operationId": "Remove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RemoveResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 删除公司",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RemoveRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Company"
+        ]
+      }
+    },
+    "/api/company/update": {
+      "post": {
+        "summary": "修改公司信息",
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 修改公司",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Company"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateRequest": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "title": "CreateRequest",
+      "required": [
+        "company",
+        "brief",
+        "picture"
+      ]
+    },
+    "CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateResponse",
+      "required": [
+        "id"
+      ]
+    },
+    "DetailRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DetailRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "DetailResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "title": "DetailResponse",
+      "required": [
+        "id",
+        "company",
+        "number",
+        "brief",
+        "picture"
+      ]
+    },
+    "ListRequest": {
+      "type": "object",
+      "title": "ListRequest"
+    },
+    "ListResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "title": "ListResponse",
+      "required": [
+        "id",
+        "company",
+        "number",
+        "brief",
+        "picture"
+      ]
+    },
+    "RefreshRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RefreshRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "RefreshResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "title": "RefreshResponse",
+      "required": [
+        "id",
+        "company",
+        "number",
+        "brief",
+        "picture"
+      ]
+    },
+    "RemoveRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RemoveRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "RemoveResponse": {
+      "type": "object",
+      "title": "RemoveResponse"
+    },
+    "UpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateRequest",
+      "required": [
+        "id",
+        "brief",
+        "picture"
+      ]
+    },
+    "UpdateResponse": {
+      "type": "object",
+      "title": "UpdateResponse"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

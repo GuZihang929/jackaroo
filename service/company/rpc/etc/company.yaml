@@ -1,0 +1,14 @@
+Name: company.rpc
+ListenOn: 0.0.0.0:9001
+Etcd:
+  Hosts:
+  - 47.113.198.106:2379
+  Key: company.rpc
+
+Mysql:
+  DataSource: root:123456@tcp(47.113.198.106:3306)/jackaroo?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+  - Host: 47.113.198.106:6379
+    Type: node
+    Pass:
