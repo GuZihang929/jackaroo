@@ -1,0 +1,18 @@
+Name: Article
+Host: 0.0.0.0
+Port: 8000
+
+
+ArticleRpc:
+  Etcd:
+    Hosts:
+      - 192.168.43.5:2379
+    Key: article.rpc
+
+Mysql:
+  DataSource: root:123456@tcp(192.168.43.5:3305)/jackaroo?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+
+Auth:
+  AccessSecret: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+  AccessExpire: 86400
