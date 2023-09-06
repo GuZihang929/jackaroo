@@ -5,7 +5,6 @@ package user
 
 import (
 	"context"
-	"fmt"
 
 	"user/rpc/rpc"
 
@@ -14,17 +13,23 @@ import (
 )
 
 type (
-	LoginRequest     = rpc.LoginRequest
-	LoginResponse    = rpc.LoginResponse
-	RegisterRequest  = rpc.RegisterRequest
-	RegisterResponse = rpc.RegisterResponse
-	UserInfoRequest  = rpc.UserInfoRequest
-	UserInfoResponse = rpc.UserInfoResponse
+	LoginRequest       = rpc.LoginRequest
+	LoginResponse      = rpc.LoginResponse
+	MailSendRequest    = rpc.MailSendRequest
+	MailSendResponse   = rpc.MailSendResponse
+	RegisterRequest    = rpc.RegisterRequest
+	RegisterResponse   = rpc.RegisterResponse
+	UserInfoRequest    = rpc.UserInfoRequest
+	UserInfoResponse   = rpc.UserInfoResponse
+	UserInsertRequest  = rpc.UserInsertRequest
+	UserInsertResponse = rpc.UserInsertResponse
 
 	User interface {
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 		Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+		MailSendCode(ctx context.Context, in *MailSendRequest, opts ...grpc.CallOption) (*MailSendResponse, error)
 		UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
+		UserInsert(ctx context.Context, in *UserInsertRequest, opts ...grpc.CallOption) (*UserInsertResponse, error)
 	}
 
 	defaultUser struct {
@@ -45,11 +50,20 @@ func (m *defaultUser) Login(ctx context.Context, in *LoginRequest, opts ...grpc.
 
 func (m *defaultUser) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
 	client := rpc.NewUserClient(m.cli.Conn())
-	fmt.Println("rpc---")
 	return client.Register(ctx, in, opts...)
+}
+
+func (m *defaultUser) MailSendCode(ctx context.Context, in *MailSendRequest, opts ...grpc.CallOption) (*MailSendResponse, error) {
+	client := rpc.NewUserClient(m.cli.Conn())
+	return client.MailSendCode(ctx, in, opts...)
 }
 
 func (m *defaultUser) UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error) {
 	client := rpc.NewUserClient(m.cli.Conn())
 	return client.UserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUser) UserInsert(ctx context.Context, in *UserInsertRequest, opts ...grpc.CallOption) (*UserInsertResponse, error) {
+	client := rpc.NewUserClient(m.cli.Conn())
+	return client.UserInsert(ctx, in, opts...)
 }

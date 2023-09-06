@@ -1,0 +1,19 @@
+Name: backstage.rpc
+ListenOn: 0.0.0.0:8080
+Etcd:
+  Hosts:
+  - 192.168.43.5:2379
+  Key: backstage.rpc
+
+
+Mysql:
+  DataSource: root:123456@tcp(192.168.43.5:3305)/jackaroo?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+
+CacheRedis:
+  - Host: 192.168.43.5:6379
+    Type: node
+    Pass:
+
+
+Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe

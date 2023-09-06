@@ -28,6 +28,16 @@ type Snowflake struct {
 	Sequence     int64 // 序列号
 }
 
+func NewSnowflake() *Snowflake {
+	return &Snowflake{
+		Mutex:        sync.Mutex{},
+		Timestamp:    time.Now().Unix(),
+		Workerid:     124,
+		Datacenterid: 1,
+		Sequence:     01231,
+	}
+}
+
 func (s *Snowflake) NextVal() int64 {
 	s.Lock()
 	now := time.Now().UnixNano() / 1000000 // 转毫秒

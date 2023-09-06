@@ -3,4 +3,7 @@ go 1.20
 use (
 	./service/user
 	.
+	./service/article
+	./service/backstage
+	./service/job
 )

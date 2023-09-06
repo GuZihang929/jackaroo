@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package rpc;
+
+option go_package = "./rpc";
+
+
+message SerchJobRequest{
+  string Sql=1;
+}
+
+message SerchJobResponse{
+  int64 Code=1;
+  string Msg=2;
+  repeated Job Date=3;
+}
+
+message Job {
+  int64   Id=1;
+  string   CId=2;
+  string   Title=3;
+  string  JobCategory=4;
+  string  JobTypeName=5;
+  string  JobDetail=6;
+  string  JobLocation=7;
+  string  push_time=8;
+  string  fetch_time=9;
+}
+
+
+
+service SJob {
+  rpc Login(SerchJobRequest) returns(SerchJobResponse);
+}

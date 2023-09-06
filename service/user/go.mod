@@ -3,11 +3,10 @@ module user
 go 1.20
 
 require (
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/zeromicro/go-zero v1.5.5
 	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
-	gorm.io/driver/mysql v1.5.1
-	gorm.io/gorm v1.25.4
 )
 
 require (
@@ -36,8 +35,6 @@ require (
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0 // indirect
-	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect

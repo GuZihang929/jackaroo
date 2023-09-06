@@ -2,26 +2,75 @@
 package types
 
 type LoginRequest struct {
-	Name     int    `json:"name"`
+	Account  string `json:"account"`
 	Password string `json:"password"`
 }
 
 type LoginResponse struct {
+	Code         int    `json:"code"` //0为用户，1为管理员
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 }
 
 type RegisterRequest struct {
-	Name     string `json:"name"`
+	Account  string `json:"Account"`
+	Code     string `json:"code"`
 	Password string `json:"password"`
 }
 
 type RegisterResponse struct {
-	Name string `json:"name"`
-	Ok   string `json:"ok"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data string `json:"data"`
+}
+
+type MailSendRequest struct {
+	Account string `json:"account"`
+}
+
+type MailSendResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data string `json:"data"`
+}
+
+type UserInsertRequst struct {
+	Name     string `json:"name"`
+	Sex      string `json:"sex"`
+	Age      int    `json:"age"`
+	Phone    string `json:"phone"`
+	Identity string `json:"identity"`
+	Need     string `json:"need"`
+}
+
+type UserInsertResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data User   `json:"data"`
 }
 
 type UserInfoResponse struct {
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	Sex      string `json:"sex"`
+	Age      int    `json:"age"`
+	Phone    string `json:"phone"`
+	Mail     string `json:"mail"`
+	Identity string `json:"identity"`
+	Need     string `json:"need"`
+}
+
+type AccessAddRequest struct {
+	Account string `json:"account"`
+}
+
+type AccessAddResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data string `json:"data"`
+}
+
+type User struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
 	Sex      string `json:"sex"`

@@ -24,7 +24,9 @@ const _ = grpc.SupportPackageIsVersion7
 type UserClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	MailSendCode(ctx context.Context, in *MailSendRequest, opts ...grpc.CallOption) (*MailSendResponse, error)
 	UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
+	UserInsert(ctx context.Context, in *UserInsertRequest, opts ...grpc.CallOption) (*UserInsertResponse, error)
 }
 
 type userClient struct {
@@ -53,9 +55,27 @@ func (c *userClient) Register(ctx context.Context, in *RegisterRequest, opts ...
 	return out, nil
 }
 
+func (c *userClient) MailSendCode(ctx context.Context, in *MailSendRequest, opts ...grpc.CallOption) (*MailSendResponse, error) {
+	out := new(MailSendResponse)
+	err := c.cc.Invoke(ctx, "/rpc.User/MailSendCode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userClient) UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error) {
 	out := new(UserInfoResponse)
 	err := c.cc.Invoke(ctx, "/rpc.User/UserInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) UserInsert(ctx context.Context, in *UserInsertRequest, opts ...grpc.CallOption) (*UserInsertResponse, error) {
+	out := new(UserInsertResponse)
+	err := c.cc.Invoke(ctx, "/rpc.User/UserInsert", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +88,9 @@ func (c *userClient) UserInfo(ctx context.Context, in *UserInfoRequest, opts ...
 type UserServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	MailSendCode(context.Context, *MailSendRequest) (*MailSendResponse, error)
 	UserInfo(context.Context, *UserInfoRequest) (*UserInfoResponse, error)
+	UserInsert(context.Context, *UserInsertRequest) (*UserInsertResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -82,8 +104,14 @@ func (UnimplementedUserServer) Login(context.Context, *LoginRequest) (*LoginResp
 func (UnimplementedUserServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
+func (UnimplementedUserServer) MailSendCode(context.Context, *MailSendRequest) (*MailSendResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MailSendCode not implemented")
+}
 func (UnimplementedUserServer) UserInfo(context.Context, *UserInfoRequest) (*UserInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserInfo not implemented")
+}
+func (UnimplementedUserServer) UserInsert(context.Context, *UserInsertRequest) (*UserInsertResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserInsert not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -134,6 +162,24 @@ func _User_Register_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_MailSendCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MailSendRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).MailSendCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.User/MailSendCode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).MailSendCode(ctx, req.(*MailSendRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _User_UserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserInfoRequest)
 	if err := dec(in); err != nil {
@@ -148,6 +194,24 @@ func _User_UserInfo_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).UserInfo(ctx, req.(*UserInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_UserInsert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserInsertRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).UserInsert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.User/UserInsert",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).UserInsert(ctx, req.(*UserInsertRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -168,8 +232,16 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_Register_Handler,
 		},
 		{
+			MethodName: "MailSendCode",
+			Handler:    _User_MailSendCode_Handler,
+		},
+		{
 			MethodName: "UserInfo",
 			Handler:    _User_UserInfo_Handler,
+		},
+		{
+			MethodName: "UserInsert",
+			Handler:    _User_UserInsert_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

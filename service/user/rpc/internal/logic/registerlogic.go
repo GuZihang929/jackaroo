@@ -2,13 +2,13 @@ package logic
 
 import (
 	"context"
-	"database/sql"
-	"errors"
 	"fmt"
 	"jackaroo/common"
+	"strconv"
 	"sync"
 	"time"
 	"user/model"
+
 	"user/rpc/internal/svc"
 	"user/rpc/rpc"
 
@@ -30,8 +30,13 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(in *rpc.RegisterRequest) (*rpc.RegisterResponse, error) {
-	// 判断手机号是否已经注册
-	user, _ := l.svcCtx.UserModel.FindOneByPhone(l.ctx, in.Phone)
+	fmt.Println("1111111111111111")
+	get, err := l.svcCtx.Redis.Get(in.Phone)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(in)
+
 	sf := &common.Snowflake{
 		Mutex:        sync.Mutex{},
 		Timestamp:    time.Now().Unix(),
@@ -39,24 +44,46 @@ func (l *RegisterLogic) Register(in *rpc.RegisterRequest) (*rpc.RegisterResponse
 		Datacenterid: 1,
 		Sequence:     01231,
 	}
+
 	uuid := sf.NextVal()
-	if user == nil {
-		fmt.Println("-=-=-=-=-=-=")
-		u := &model.User{
-			Uuid:     uuid,
-			Phone:    sql.NullString{String: in.Phone, Valid: true},
-			Password: sql.NullString{String: in.Password, Valid: true},
+	var user model.User
+
+	if get == strconv.FormatInt(in.Code, 10) {
+		err = l.svcCtx.DB.QueryRow(&user, "select * from user where mail = ?", in.Phone)
+		fmt.Println(user)
+		fmt.Println("===================1")
+		if user.Mail.String != "" {
+			fmt.Println("===================2")
+			_, err = l.svcCtx.DB.Exec("update user set  password = ? where mail = ?", in.Password, in.Phone)
+			fmt.Println(err)
+			fmt.Println("===================3")
+			if err != nil {
+				return &rpc.RegisterResponse{
+					Name: "保存有误",
+					Ok:   "400",
+				}, err
+			}
+		} else {
+			fmt.Println("===================4")
+			_, err = l.svcCtx.DB.Exec("insert into user (uuid,mail,password) values (?,?,?)", uuid, in.Phone, in.Password)
+			if err != nil {
+				return &rpc.RegisterResponse{
+					Name: "保存有误",
+					Ok:   "400",
+				}, err
+			}
 		}
-		insert, e := l.svcCtx.UserModel.Insert(l.ctx, u)
-		if e != nil {
-			return nil, e
-		}
-		fmt.Println(insert)
+
+	} else {
 
 		return &rpc.RegisterResponse{
-			Name: "注册成功",
-			Ok:   "200",
-		}, nil
+			Name: "验证码有误",
+			Ok:   "400",
+		}, err
 	}
-	return &rpc.RegisterResponse{}, errors.New("已经存在")
+
+	return &rpc.RegisterResponse{
+		Name: "注册成功",
+		Ok:   "200",
+	}, nil
 }

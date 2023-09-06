@@ -32,7 +32,17 @@ func (s *UserServer) Register(ctx context.Context, in *rpc.RegisterRequest) (*rp
 	return l.Register(in)
 }
 
+func (s *UserServer) MailSendCode(ctx context.Context, in *rpc.MailSendRequest) (*rpc.MailSendResponse, error) {
+	l := logic.NewMailSendCodeLogic(ctx, s.svcCtx)
+	return l.MailSendCode(in)
+}
+
 func (s *UserServer) UserInfo(ctx context.Context, in *rpc.UserInfoRequest) (*rpc.UserInfoResponse, error) {
 	l := logic.NewUserInfoLogic(ctx, s.svcCtx)
 	return l.UserInfo(in)
+}
+
+func (s *UserServer) UserInsert(ctx context.Context, in *rpc.UserInsertRequest) (*rpc.UserInsertResponse, error) {
+	l := logic.NewUserInsertLogic(ctx, s.svcCtx)
+	return l.UserInsert(in)
 }

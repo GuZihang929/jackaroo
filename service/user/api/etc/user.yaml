@@ -9,6 +9,10 @@ UserRpc:
       - 192.168.43.5:2379
     Key: user.rpc
 
+CacheRedis:
+  - Host: 192.168.43.5:6379
+    Type: node
+    Pass:
 
 Auth:
   AccessSecret: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
