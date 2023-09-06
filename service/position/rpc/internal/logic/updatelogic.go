@@ -3,9 +3,9 @@ package logic
 import (
 	"context"
 	"google.golang.org/grpc/status"
-	"xiangxiang/jackaroo/service/position/model/model"
-	"xiangxiang/jackaroo/service/position/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/position/rpc/types/position"
+	"jackaroo/service/position/model/model"
+	"jackaroo/service/position/rpc/internal/svc"
+	"jackaroo/service/position/rpc/types/position"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

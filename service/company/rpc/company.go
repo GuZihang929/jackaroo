@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"xiangxiang/jackaroo/service/company/rpc/internal/config"
-	"xiangxiang/jackaroo/service/company/rpc/internal/server"
-	"xiangxiang/jackaroo/service/company/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/company/rpc/types/company"
+	"jackaroo/service/company/rpc/internal/config"
+	"jackaroo/service/company/rpc/internal/server"
+	"jackaroo/service/company/rpc/internal/svc"
+	"jackaroo/service/company/rpc/types/company"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"

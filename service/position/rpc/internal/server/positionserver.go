@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"xiangxiang/jackaroo/service/position/rpc/internal/logic"
-	"xiangxiang/jackaroo/service/position/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/position/rpc/types/position"
+	"jackaroo/service/position/rpc/internal/logic"
+	"jackaroo/service/position/rpc/internal/svc"
+	"jackaroo/service/position/rpc/types/position"
 )
 
 type PositionServer struct {

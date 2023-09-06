@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"xiangxiang/jackaroo/service/company/rpc/internal/logic"
-	"xiangxiang/jackaroo/service/company/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/company/rpc/types/company"
+	"jackaroo/service/company/rpc/internal/logic"
+	"jackaroo/service/company/rpc/internal/svc"
+	"jackaroo/service/company/rpc/types/company"
 )
 
 type CompanyServer struct {

@@ -1,0 +1,24 @@
+Name: SJob
+Host: 0.0.0.0
+Port: 8000
+
+
+SJobRpc:
+  Etcd:
+    Hosts:
+      - 192.168.43.5:2379
+    Key: job.rpc
+
+
+Mysql:
+  DataSource: root:123456@tcp(192.168.43.5:3305)/jackaroo?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+
+CacheRedis:
+  - Host: 192.168.43.5:6379
+    Type: node
+    Pass:
+
+Auth:
+  AccessSecret: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+  AccessExpire: 86400

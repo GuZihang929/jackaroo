@@ -1,0 +1,18 @@
+Name: article.rpc
+ListenOn: 127.0.0.1:1000
+Etcd:
+  Hosts:
+  - 192.168.43.5:2379
+  Key: article.rpc
+
+Mysql:
+  DataSource: root:123456@tcp(192.168.43.5:3305)/jackaroo?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+
+CacheRedis:
+  - Host: 192.168.43.5:6379
+    Type: node
+    Pass:
+
+
+Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe

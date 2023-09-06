@@ -6,7 +6,7 @@ package companyclient
 import (
 	"context"
 
-	"xiangxiang/jackaroo/service/company/rpc/types/company"
+	"jackaroo/service/company/rpc/types/company"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

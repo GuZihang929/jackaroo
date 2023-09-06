@@ -3,12 +3,11 @@ package logic
 import (
 	"context"
 	"google.golang.org/grpc/status"
-	"xiangxiang/jackaroo/service/company/model/model"
-
-	"xiangxiang/jackaroo/service/company/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/company/rpc/types/company"
+	"jackaroo/service/company/model/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"jackaroo/service/company/rpc/internal/svc"
+	"jackaroo/service/company/rpc/types/company"
 )
 
 type UpdateLogic struct {

@@ -1,0 +1,15 @@
+Name: backstage
+Host: 127.0.0.2
+Port: 8888
+
+
+BackstageRpc:
+  Etcd:
+    Hosts:
+      - 192.168.43.5:2379
+    Key: backstage.rpc
+
+
+Auth:
+  AccessSecret: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+  AccessExpire: 86400

@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"xiangxiang/jackaroo/service/company/api/api/internal/logic"
-	"xiangxiang/jackaroo/service/company/api/api/internal/svc"
-	"xiangxiang/jackaroo/service/company/api/api/internal/types"
+	"jackaroo/service/company/api/api/internal/logic"
+	"jackaroo/service/company/api/api/internal/svc"
+	"jackaroo/service/company/api/api/internal/types"
 )
 
 func ListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

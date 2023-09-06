@@ -6,11 +6,11 @@ Port: 8000
 UserRpc:
   Etcd:
     Hosts:
-      - 192.168.43.5:2379
+      - 47.113.198.106:2379
     Key: user.rpc
 
 CacheRedis:
-  - Host: 192.168.43.5:6379
+  - Host: 47.113.198.106:6379
     Type: node
     Pass:
 

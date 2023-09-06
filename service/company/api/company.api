@@ -17,7 +17,6 @@ type (
 		Id int64 `json:"id"`
 	}
 
-
 	// 修改公司
 	UpdateRequest {
 		Id      int64  `json:"id"`
@@ -28,14 +27,12 @@ type (
 	UpdateResponse {
 	}
 
-
 	// 删除公司
 	RemoveRequest {
 		Id int64 `json:"id"`
 	}
 	RemoveResponse {
 	}
-
 
 	// 公司详情
 	DetailRequest {
@@ -49,7 +46,6 @@ type (
 		Picture string `json:"picture"`
 	}
 
-
 	//查看全部公司详情
 	ListRequest {
 	}
@@ -60,7 +56,6 @@ type (
 		Brief   string `json:"brief"`
 		Picture string `json:"picture"`
 	}
-
 
 	// 刷新
 	RefreshRequest {
@@ -75,6 +70,9 @@ type (
 	}
 )
 
+@server (
+	jwt :Auth
+)
 service Company {
 	@doc (
 		summary :"添加公司信息"

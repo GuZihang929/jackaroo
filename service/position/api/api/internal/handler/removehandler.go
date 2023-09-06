@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"xiangxiang/jackaroo/service/position/api/api/internal/logic"
-	"xiangxiang/jackaroo/service/position/api/api/internal/svc"
-	"xiangxiang/jackaroo/service/position/api/api/internal/types"
+	"jackaroo/service/position/api/api/internal/logic"
+	"jackaroo/service/position/api/api/internal/svc"
+	"jackaroo/service/position/api/api/internal/types"
 )
 
 func RemoveHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -52,6 +52,11 @@ type (
 		Picture string `json:"picture"`
 	}
 )
+
+@server (
+	jwt :AUth
+)
+
 service Position {
 	@doc (
 		summary :"添加职位信息"

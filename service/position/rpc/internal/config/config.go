@@ -10,6 +10,7 @@ type Config struct {
 	Mysql struct {
 		DataSource string
 	}
+	UserRpc    zrpc.RpcClientConf
 	CacheRedis cache.CacheConf
 	CompanyRpc zrpc.RpcClientConf
 }

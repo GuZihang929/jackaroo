@@ -12,3 +12,5 @@ CacheRedis:
   - Host: 47.113.198.106:6379
     Type: node
     Pass:
+
+Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe

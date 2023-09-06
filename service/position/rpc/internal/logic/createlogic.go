@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/status"
+	"jackaroo/service/company/rpc/types/company"
+	"jackaroo/service/position/model/model"
+	"jackaroo/service/position/rpc/internal/svc"
+	"jackaroo/service/position/rpc/types/position"
 	"time"
-	"xiangxiang/jackaroo/service/company/rpc/types/company"
-	"xiangxiang/jackaroo/service/position/model/model"
-	"xiangxiang/jackaroo/service/position/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/position/rpc/types/position"
 )
 
 type CreateLogic struct {

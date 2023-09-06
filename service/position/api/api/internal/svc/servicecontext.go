@@ -2,9 +2,9 @@ package svc
 
 import (
 	"github.com/zeromicro/go-zero/zrpc"
-	"xiangxiang/jackaroo/service/position/api/api/internal/config"
-	"xiangxiang/jackaroo/service/position/rpc/positionclient"
-	"xiangxiang/jackaroo/service/position/rpc/types/position"
+	"jackaroo/service/position/api/api/internal/config"
+	"jackaroo/service/position/rpc/positionclient"
+	"jackaroo/service/position/rpc/types/position"
 )
 
 type ServiceContext struct {

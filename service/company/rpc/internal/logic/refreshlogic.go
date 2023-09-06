@@ -2,9 +2,10 @@ package logic
 
 import (
 	"context"
-	"xiangxiang/jackaroo/service/company/model/model"
-	"xiangxiang/jackaroo/service/company/rpc/internal/svc"
-	"xiangxiang/jackaroo/service/company/rpc/types/company"
+	"jackaroo/service/company/model/model"
+
+	"jackaroo/service/company/rpc/internal/svc"
+	"jackaroo/service/company/rpc/types/company"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
