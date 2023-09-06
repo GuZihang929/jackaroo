@@ -1,0 +1,84 @@
+info(
+	title: "用户文档"
+	desc: "用户接口"
+	author: "王志乾"
+	email: "835118160@qq.com"
+	version: "1.0"
+)
+
+type (
+
+	// 职位修改
+	UpdateRequest {
+		Id          int64  `json:"id"`
+		Title       string `json:"title"`
+		JobCategory string `json:"job_category"`
+		JobTypeName string `json:"job_type_name"`
+		JobDetail   string `json:"job_detail"`
+		JobLocation string `json:"job_location"`
+	}
+	UpdateResponse {
+	}
+
+	// 产品删除
+	RemoveRequest {
+		Id int64 `json:"id"`
+	}
+	RemoveResponse {
+	}
+
+	// 职位创建
+	CreateRequest {
+		Cid         int64  `json:"cid"`
+		Title       string `json:"title"`
+		JobCategory string `json:"job_category"`
+		JobTypeName string `json:"job_type_name"`
+		JobDetail   string `json:"job_detail"`
+		JobLocation string `json:"job_location"`
+	}
+	CreateResponse {
+		Id int64 `json:"id"`
+	}
+
+	//	刷新
+	RefreshRequest {
+		Cid int64 `json:"cid"`
+	}
+	RefreshResponse {
+		Id      int64  `json:"id"`
+		Company string `json:"company"`
+		Number  int64  `json:"number"`
+		Brief   string `json:"brief"`
+		Picture string `json:"picture"`
+	}
+)
+
+@server (
+	jwt :AUth
+)
+
+service Position {
+	@doc (
+		summary :"添加职位信息"
+	)
+	@handler Create
+	post /api/position/create(CreateRequest) returns (CreateResponse)
+
+	@doc (
+		summary :"修改职位信息"
+	)
+	@handler Update
+	post /api/position/update(UpdateRequest) returns (UpdateResponse)
+
+	@doc (
+		summary :"删除职位信息"
+	)
+	@handler Remove
+	post /api/position/remove(RemoveRequest) returns (RemoveResponse)
+
+	@doc (
+		summary :"刷新职位信息"
+	)
+	@handler Refresh
+	post /api/position/refresh(RefreshRequest) returns (RefreshResponse)
+}

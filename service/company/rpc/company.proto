@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "./company";
+
+// 公司创建
+message CreateRequest {
+  string Company = 1;
+  string Brief  =2;
+  string Picture =3;
+}
+message CreateResponse {
+  int64 id = 1;
+}
+// 公司创建
+
+// 公司修改
+message UpdateRequest {
+  int64 id = 1;
+  string Company = 2;
+  string Brief  =3;
+  string Picture =4;
+}
+message UpdateResponse {
+}
+// 公司修改
+
+// 公司删除
+message RemoveRequest {
+  int64 id = 1;
+}
+message RemoveResponse {
+}
+// 公司删除
+
+// 公司详情
+message DetailRequest {
+  int64 id = 1;
+}
+message DetailResponse {
+  int64 id = 1;
+  string Company = 2;
+  int64 Number=3;
+  string Brief  =4;
+  string Picture =5;
+}
+// 公司详情
+
+message ListRequest{
+}
+
+message ListResponse {
+  repeated DetailResponse data = 1;
+}
+
+
+message RefreshRequest{
+  int64 id = 1;
+}
+message RefreshResponse {
+  int64 id = 1;
+  string Company = 2;
+  int64 Number=3;
+  string Brief  =4;
+  string Picture =5;
+}
+
+service Company {
+  rpc Create(CreateRequest) returns(CreateResponse);
+  rpc Update(UpdateRequest) returns(UpdateResponse);
+  rpc Remove(RemoveRequest) returns(RemoveResponse);
+  rpc Detail(DetailRequest) returns(DetailResponse);
+  rpc Refresh(RefreshRequest) returns(RefreshResponse);
+  rpc List(ListRequest) returns(ListResponse);
+}

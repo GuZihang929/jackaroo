@@ -1,0 +1,294 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "用户文档",
+    "description": "用户接口",
+    "version": "1.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/position/create": {
+      "post": {
+        "summary": "添加职位信息",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 职位创建",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Position"
+        ]
+      }
+    },
+    "/api/position/refresh": {
+      "post": {
+        "summary": "刷新职位信息",
+        "operationId": "Refresh",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RefreshResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "\t刷新",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefreshRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Position"
+        ]
+      }
+    },
+    "/api/position/remove": {
+      "post": {
+        "summary": "删除职位信息",
+        "operationId": "Remove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RemoveResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 产品删除",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RemoveRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Position"
+        ]
+      }
+    },
+    "/api/position/update": {
+      "post": {
+        "summary": "修改职位信息",
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 职位修改",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "Position"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateRequest": {
+      "type": "object",
+      "properties": {
+        "cid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "job_category": {
+          "type": "string"
+        },
+        "job_type_name": {
+          "type": "string"
+        },
+        "job_detail": {
+          "type": "string"
+        },
+        "job_location": {
+          "type": "string"
+        }
+      },
+      "title": "CreateRequest",
+      "required": [
+        "cid",
+        "title",
+        "job_category",
+        "job_type_name",
+        "job_detail",
+        "job_location"
+      ]
+    },
+    "CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateResponse",
+      "required": [
+        "id"
+      ]
+    },
+    "RefreshRequest": {
+      "type": "object",
+      "properties": {
+        "cid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RefreshRequest",
+      "required": [
+        "cid"
+      ]
+    },
+    "RefreshResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "title": "RefreshResponse",
+      "required": [
+        "id",
+        "company",
+        "number",
+        "brief",
+        "picture"
+      ]
+    },
+    "RemoveRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RemoveRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "RemoveResponse": {
+      "type": "object",
+      "title": "RemoveResponse"
+    },
+    "UpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "job_category": {
+          "type": "string"
+        },
+        "job_type_name": {
+          "type": "string"
+        },
+        "job_detail": {
+          "type": "string"
+        },
+        "job_location": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateRequest",
+      "required": [
+        "id",
+        "title",
+        "job_category",
+        "job_type_name",
+        "job_detail",
+        "job_location"
+      ]
+    },
+    "UpdateResponse": {
+      "type": "object",
+      "title": "UpdateResponse"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}
